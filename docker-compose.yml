@@ -1,0 +1,17 @@
+services:
+  db:
+    image: postgres:16
+    container_name: vitallink-db
+    environment:
+      POSTGRES_USER: vitallink
+      POSTGRES_PASSWORD: vitallink_dev
+      POSTGRES_DB: vitallink
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      # Exécuté automatiquement à la première création de la base
+      - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+
+volumes:
+  pgdata:
